@@ -7,14 +7,14 @@
 // という形で区別し、下記のフォーマットで出力するプログラムを作ってください。
 // ○○点は「○」です。
 
-$score = 100; //いくつかのケースで動作確認を行ってください。
+$score = 45; //いくつかのケースで動作確認を行ってください。
 
 if($score >= 80){
-  echo "$score点は「優」です。";
+  echo $score . "点は「優」です。";
 }elseif($score >= 60){
-  echo "$score点は「良」です。";
+  echo $score . "点は「良」です。";
 }elseif($score >= 40){
-  echo "$score点は「可」です。";
+  echo $score . "点は「可」です。";
 }else{
-  echo "$score点は「不可」です。";
+  echo $score . "点は「不可」です。";
 }

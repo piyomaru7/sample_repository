@@ -27,15 +27,19 @@ function calc($yen, $product) {
   $change = $yen - $product;
   $money = [10000, 5000, 1000, 500, 100, 50, 10, 5, 1];
   if($change < 0){
-    return $change * -1 . '円足りません。';
+    echo $change * -1 . '円足りません。';
   }
   foreach($money as $j){
     $sheet = floor($change / $j);
     $change -= ($j * $sheet);
     if($j > 500){
-      echo $j . "円札×" . $sheet . "枚" . "、";
+      echo $j . "円札×" . $sheet . "枚";
     }else{
-      echo $j . "円玉×" . $sheet . "枚" . "、";
+      echo $j . "円玉×" . $sheet . "枚";
+    }
+    // 最後の"、"だけ取り除く
+    if(next($money)){
+      echo "、";
     }
   }
   

@@ -36,12 +36,12 @@ class Person{
   }
 
   public function addAge(){    
-    return "誕生日が来ました。";
+    echo "誕生日が来ました。";
+    $this->age += 1;
   }
 }
 
 $yamada = new Person("山田", 20, "男性");
 echo $yamada->selfIntroduction() . "<br>";
 echo $yamada->addAge() . "<br>";
-$yamada->age += 1;
 echo $yamada->selfIntroduction() . "<br>";

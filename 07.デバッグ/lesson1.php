@@ -20,7 +20,7 @@ if (!empty($_POST)) {
 <body>
     <section>
     <form action='./lesson1.php' method="post">
-        <label>姓</label>
+        <label>姓test</label>
         <input type="text" name="last_name"/>
         <label>名</label>
         <input type="text" name="first_name" />

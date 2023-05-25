@@ -36,7 +36,7 @@ SELECT * FROM countries
 -- 問8
 -- 独立独立記念日がある国をすべて抽出してください。
 SELECT * FROM countries
-	WHERE indep_year IS NOT NULL ;
+	WHERE indep_year IS NOT NULL;
 
 
 -- 問9
@@ -107,19 +107,25 @@ SELECT region, MAX(life_expectancy) as '最長寿命', MAX(population) as '最�
 
 -- 問23
 -- アジア大陸の中で最小の表面積を表示してください
-SELECT MIN(surface_area) as 'アジアの最小表面積' FROM countries;
+SELECT MIN(surface_area) as 'アジアの最小表面積' FROM countries 
+WHERE continent = 'Asia';
 
 -- 問24
 -- アジア大陸の表面積の合計を表示してください。
-SELECT SUM(surface_area) as 'アジア大陸の表面積の合計' FROM countries;
+SELECT SUM(surface_area) as 'アジア大陸の表面積の合計' FROM countries 
+WHERE continent = 'Asia';
 
 -- 問25
 -- 全ての国と言語を表示してください。
-SELECT name, language FROM countries, countrylanguages;
+SELECT countries.name, language FROM countries 
+JOIN countrylanguages 
+ON countries.code = countrylanguages.country_code;
 
 -- 問26
 -- 全ての国と言語と市区町村を表示してください。
-SELECT countries.name as '国名', cities.name as '市区町村名', language FROM countries, cities, countrylanguages;
+SELECT countries.name as '国名', cities.name as '市区町村名', language FROM countries 
+JOIN cities ON countries.code = cities.country_code 
+JOIN  countrylanguages ON countries.code = countrylanguages.country_code;
 
 -- 問27
 -- 全ての有名人を出力してください。左側外部結合を使用して国名なし（country_codeがNULL）も表示してください。

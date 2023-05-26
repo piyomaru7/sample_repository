@@ -1,0 +1,15 @@
+.contact_main {
+  margin: 0 auto;
+  width: 200px;
+  padding: 30px;
+  border: 1px solid black;
+}
+
+.contact_main p {
+  text-align: center;
+}
+
+.contact_form {
+  display: flex;
+  flex-direction: column;
+} 

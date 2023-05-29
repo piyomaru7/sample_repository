@@ -1,15 +1,18 @@
 <?php
 
   require_once(ROOT_PATH . 'Models/dbc.php');
-
+  
   $contact = $_POST;
 
   if (empty($contact['name'])) {
     echo '名前を入力してください';
+    // header('Location: /contact.php');
   }
 
   if (empty($contact['kana'])) {
     echo 'フリガナを入力してください';
+    header('Location: /contact.php');
+
   }
 
   if (!preg_match("/\d/", $contact['tel'])) {
@@ -30,7 +33,7 @@
           (:name, :kana, :tel, :email, :body)';
 
   $dbh = dbConnect();
-
+  $dbh->beginTransaction();
   try {
     $stmt = $dbh->prepare($sql);
     $stmt->bindValue(':name', $contact['name'], PDO::PARAM_STR);
@@ -38,9 +41,10 @@
     $stmt->bindValue(':tel', $contact['tel'], PDO::PARAM_INT);
     $stmt->bindValue(':email', $contact['email'], PDO::PARAM_STR);
     $stmt->bindValue(':body', $contact['body'], PDO::PARAM_STR);
+    $dbh->commit();
     $stmt->execute();
   } catch(PDOException $e) {
-    echo '投稿失敗' . $e->getMessage();
+    $dbh->rollback();
     exit();
   }
 ?>

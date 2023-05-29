@@ -1,6 +1,9 @@
 .contact_main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0 auto;
-  width: 200px;
+  width: 585px;
   padding: 30px;
   border: 1px solid black;
 }
@@ -9,7 +12,18 @@
   text-align: center;
 }
 
+.form {
+  margin: 20px 0;
+}
+
 .contact_form {
   display: flex;
   flex-direction: column;
 } 
+
+.input_text {
+  margin: 5px 0;
+}
+
+
+

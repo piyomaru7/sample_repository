@@ -16,14 +16,3 @@ function dbConnect() {
 
   return $dbh;
 }
-
-function getAllContacts() {
-  $dbh = dbConnect();
-  $sql = 'SELECT * FROM contacts';
-  $stmt = $dbh->query($sql);
-  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);  
-  return $result;
-  $dbh = null;
-}
-
-?>

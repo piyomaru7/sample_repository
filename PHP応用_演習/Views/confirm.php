@@ -1,50 +1,59 @@
 <?php
-
-  require_once(ROOT_PATH . 'Models/dbc.php');
+  session_start();
+  require_once(ROOT_PATH . 'Controllers/ContactController.php');
   
-  $contact = $_POST;
 
-  if (empty($contact['name'])) {
-    echo '名前を入力してください';
-    // header('Location: /contact.php');
+  if(isset($_POST['confirm'])){    
+    $contact = new Contact();
+    $contactData = $contact->insert($_SESSION);
   }
 
-  if (empty($contact['kana'])) {
-    echo 'フリガナを入力してください';
-    header('Location: /contact.php');
 
-  }
-
-  if (!preg_match("/\d/", $contact['tel'])) {
-    echo '数字入力してください';
-  }
-
-  if (empty($contact['email'])) {
-    echo 'Eメールアドレスを入力してください';
-  }
-
-  if (empty($contact['body'])) {
-    echo 'お問い合わせ内容を入力してください';
-  }
-
-  $sql = 'INSERT INTO 
-            contacts (name, kana, tel, email, body)
-          VALUES
-          (:name, :kana, :tel, :email, :body)';
-
-  $dbh = dbConnect();
-  $dbh->beginTransaction();
-  try {
-    $stmt = $dbh->prepare($sql);
-    $stmt->bindValue(':name', $contact['name'], PDO::PARAM_STR);
-    $stmt->bindValue(':kana', $contact['kana'], PDO::PARAM_STR);
-    $stmt->bindValue(':tel', $contact['tel'], PDO::PARAM_INT);
-    $stmt->bindValue(':email', $contact['email'], PDO::PARAM_STR);
-    $stmt->bindValue(':body', $contact['body'], PDO::PARAM_STR);
-    $dbh->commit();
-    $stmt->execute();
-  } catch(PDOException $e) {
-    $dbh->rollback();
-    exit();
-  }
 ?>
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>お問い合わせ</title>
+  <link rel="stylesheet" type="text/css" href="../css/contact.css">
+  <link rel="stylesheet" type="text/css" href="../css/table.css">
+</head>
+<body>
+<div class="contact_main">
+    
+    <p>確認画面</p>
+    <div class="form">
+      <form class="contact_form" action='./confirm.php' method='post'>
+        <div class="input_text">
+          <p>氏名<br>
+          <?php echo $_SESSION['name'] ?>
+          </p>
+        </div>
+        <div class="input_text">
+          <p>フリガナ<br>
+          <?php echo $_SESSION['kana'] ?>
+          </p>
+        </div>
+        <div class="input_text">
+           <p>電話番号<br>
+          <?php echo $_SESSION['tel'] ?>
+          </p>
+        </div>
+        <div class="input_text">
+           <p>メールアドレス<br>
+          <?php echo $_SESSION['email'] ?>
+          </p>
+        </div>
+        <div class="input_text">
+          <p>お問い合わせ内容<br>
+          <?php echo $_SESSION['body'] ?>
+          </p>
+        </div>
+        <button type="button" onclick="history.back(-1)">戻る</button>
+        <input type="submit" name="confirm" value="確認" class="submit_btn">
+      </form>
+    </div>
+    
+</div>
+</body>
+</html>

@@ -5,7 +5,6 @@ $contact = new ContactController();
 $contactsData = $contact->index();
 $validate = $contact->insertValidate();
 
-
 ?>
 
 <!DOCTYPE HTML>
@@ -69,6 +68,7 @@ $validate = $contact->insertValidate();
           <td><?php echo $column['email'] ?></td>
           <td><?php echo $column['body'] ?></td>
           <td><a href="/edit.php?id=<?php echo $column['id'] ?>">編集</a></td>
+          <td><a href="/deleteConfirm.php?id=<?php echo $column['id'] ?>">削除</a></td>
         </tr>
       <?php endforeach; ?>
     </table>

@@ -2,13 +2,14 @@
   session_start();
   require_once(ROOT_PATH . 'Controllers/ContactController.php');
   
+  $contact = new ContactController();
+  $contactsData = $contact->edit();
 
   if(isset($_POST['confirm'])){  
-
+    $id = $_POST['id'];
     $contact = new Contact();
-    $contactData = $contact->update($_SESSION);
-    header('Location: editComplete.php');
-    session_destroy();
+    $contactData = $contact->postDelete($id);
+    header('Location: deleteComplete.php');
   }
 
 ?>
@@ -23,36 +24,34 @@
 <body>
 <div class="contact_main">
     
-    <p>編集確認画面</p>
+    <p>削除しますか？</p>
     <div class="form">
-      <form class="contact_form" action='./editConfirm.php' method='post'>
+      <form class="contact_form" action='./deleteConfirm.php' method='post'>
+      <input type="hidden" name="id" value="<?php echo $contactsData['id']?>"/>
+
         <div class="input_text">
           <p>氏名<br>
-          <?php echo $_SESSION['name'] ?>
+          <?php echo $contactsData['name']?>
           </p>
         </div>
         <div class="input_text">
           <p>フリガナ<br>
-          <?php echo $_SESSION['kana'] ?>
-          </p>
+          <?php echo $contactsData['kana'];?>          </p>
         </div>
         <div class="input_text">
            <p>電話番号<br>
-          <?php echo $_SESSION['tel'] ?>
-          </p>
+           <?php echo $contactsData['tel'];?>          </p>
         </div>
         <div class="input_text">
            <p>メールアドレス<br>
-          <?php echo $_SESSION['email'] ?>
-          </p>
+           <?php echo $contactsData['email'];?>          </p>
         </div>
         <div class="input_text">
           <p>お問い合わせ内容<br>
-          <?php echo $_SESSION['body'] ?>
-          </p>
+          <?php echo $contactsData['body'];?>          </p>
         </div>
         <button type="button" onclick="history.back(-1)">戻る</button>
-        <input type="submit" name="confirm" value="確認" class="submit_btn">
+        <input type="submit" name="confirm" value="削除" class="submit_btn">
       </form>
     </div>
     

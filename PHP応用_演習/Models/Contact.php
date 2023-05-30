@@ -4,7 +4,8 @@ require_once(ROOT_PATH . 'Models/dbc.php');
 
 class Contact
 {
-  function insert($contact) {
+  // 新規投稿実行
+  function insert($contact) { 
     $sql = 'INSERT INTO 
               contacts (name, kana, tel, email, body)
               VALUES
@@ -12,7 +13,7 @@ class Contact
     
     $dbh = dbConnect();
     
-    if (isset($contact)) {
+    if (isset($contact)) {//$contactに値がセットされていたら実行
       $dbh->beginTransaction();
       try {
         $stmt = $dbh->prepare($sql);
@@ -31,6 +32,7 @@ class Contact
     } 
   }
 
+  // 編集実行
   function update($contact) {
     $sql = 'UPDATE contacts SET
               name = :name, kana = :kana, tel = :tel, email = :email, body = :body
@@ -40,7 +42,7 @@ class Contact
     
     $dbh = dbConnect();
     
-    if (isset($contact)) {
+    if (isset($contact)) {//$contactに値がセットされていたら実行
       $dbh->beginTransaction();
       try {
         $stmt = $dbh->prepare($sql);
@@ -60,6 +62,7 @@ class Contact
     } 
   }
   
+  // contactテーブル全てのデータ取得
   function getAllContacts()
   {
     $dbh = dbConnect();
@@ -70,6 +73,7 @@ class Contact
     $dbh = null;
   }
 
+  // 編集用idを受け取りレコードを取得
   function editInsert($id) {
     $dbh = dbConnect();
     $stmt = $dbh->prepare('SELECT * FROM contacts WHERE id = :id');
@@ -77,6 +81,13 @@ class Contact
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result;
+  }
+
+  function postDelete($id){
+    $dbh = dbConnect();
+    $stmt = $dbh->prepare('DELETE FROM contacts WHERE id = :id');
+    $stmt->bindValue(':id', (int)$id, PDO::PARAM_INT);
+    $stmt->execute();
   }
 }
 

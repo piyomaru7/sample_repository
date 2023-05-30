@@ -5,12 +5,20 @@ require_once(ROOT_PATH . 'Models/Contact.php');
 
 Class ContactController 
 {
+
+// エスケープ
+function h($s){
+  return htmlspecialchars($s, ENT_QUOTES, "UTF-8");
+}
+
+// ContactクラスのgetAllContactsを呼び出してテーブル一覧取得
 function index(){
   $contact = new Contact();
   $contactsData = $contact->getAllContacts();
   return $contactsData;
 }
 
+// ContactクラスのeditInsertを引数でidを渡して呼び出し特定のレコードを取得
 function edit(){
   $id = $_GET['id'];
   $contact = new Contact();
@@ -18,15 +26,23 @@ function edit(){
   return $contactsData;
 }
 
+function delete(){
+  $id = $_GET['id'];
+  $contact = new Contact();
+  $contactsData = $contact->postDelete($id);
+  return $contactsData;
+}
+
+// 新規投稿時のバリデーション
 function insertValidate() {
 
   if (isset($_POST['submit'])) {
-
-    $_SESSION['name'] = $_POST['name'];
-    $_SESSION['kana'] = $_POST['kana'];
-    $_SESSION['tel'] = $_POST['tel'];
-    $_SESSION['email'] = $_POST['email'];
-    $_SESSION['body'] = $_POST['body'];
+    
+    $_SESSION['name'] = $this->h($_POST['name']);
+    $_SESSION['kana'] = $this->h($_POST['kana']);
+    $_SESSION['tel'] = $this->h($_POST['tel']);
+    $_SESSION['email'] = $this->h($_POST['email']);
+    $_SESSION['body'] = $this->h($_POST['body']);
 
   
     $errors = [];
@@ -60,16 +76,17 @@ function insertValidate() {
 
 }
 
+// 投稿編集時のバリデーション
 function editValidate() {
 
   if (isset($_POST['submit'])) {
 
     $_SESSION['id'] = $_POST['id'];
-    $_SESSION['name'] = $_POST['name'];
-    $_SESSION['kana'] = $_POST['kana'];
-    $_SESSION['tel'] = $_POST['tel'];
-    $_SESSION['email'] = $_POST['email'];
-    $_SESSION['body'] = $_POST['body'];
+    $_SESSION['name'] = $this->h($_POST['name']);
+    $_SESSION['kana'] = $this->h($_POST['kana']);
+    $_SESSION['tel'] = $this->h($_POST['tel']);
+    $_SESSION['email'] = $this->h($_POST['email']);
+    $_SESSION['body'] = $this->h($_POST['body']);
 
   
     $errors = [];
@@ -99,7 +116,6 @@ function editValidate() {
       header('Location: /editConfirm.php');
     } 
   }
-  
-
 }
+
 }

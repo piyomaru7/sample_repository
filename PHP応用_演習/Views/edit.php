@@ -1,6 +1,5 @@
 <?php
 session_start();
-$id = $_GET['id'];
 require_once(ROOT_PATH . 'Controllers/ContactController.php');
 $contact = new ContactController();
 $contactsData = $contact->edit();
@@ -50,6 +49,7 @@ $validate = $contact->editValidate();
             <textarea name="body" ><?php echo $contactsData['body']?></textarea>
           </label>
         </div>
+        <button type="button" onclick="history.back(-1)">戻る</button>
         <input type="submit" name="submit" value="確認" class="submit_btn">
       </form>
     </div>

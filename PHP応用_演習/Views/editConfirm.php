@@ -3,9 +3,10 @@
   require_once(ROOT_PATH . 'Controllers/ContactController.php');
   
 
-  if(isset($_POST['confirm'])){    
+  if(isset($_POST['confirm'])){  
+
     $contact = new Contact();
-    $contactData = $contact->insert($_SESSION);
+    $contactData = $contact->update($_SESSION);
   }
 
 ?>
@@ -20,9 +21,9 @@
 <body>
 <div class="contact_main">
     
-    <p>確認画面</p>
+    <p>編集確認画面</p>
     <div class="form">
-      <form class="contact_form" action='./confirm.php' method='post'>
+      <form class="contact_form" action='./editConfirm.php' method='post'>
         <div class="input_text">
           <p>氏名<br>
           <?php echo $_SESSION['name'] ?>

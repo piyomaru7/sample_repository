@@ -2,8 +2,8 @@
 session_start();
 require_once(ROOT_PATH . 'Controllers/ContactController.php');
 $contact = new ContactController();
-$contactsData = $contact->temp();
-$validate = $contact->validate();
+$contactsData = $contact->index();
+$validate = $contact->insertValidate();
 
 
 ?>

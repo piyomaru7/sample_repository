@@ -2,6 +2,7 @@
   require_once(ROOT_PATH . 'Controllers/ContactController.php');
   session_start();
   session_destroy();
+  
 ?>
 
 送信

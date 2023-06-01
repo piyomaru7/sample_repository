@@ -55,3 +55,65 @@ $(function () {
 });
 
 });
+
+function validateForm() {
+	var input1 = document.getElementById('input1').value;
+	var input2 = document.getElementById('input2').value;
+	var input5 = document.getElementById('input5').value;
+	errors = [];
+	
+	if(input1 == ''){
+		errors.push("名前を入力してください\n");
+	}
+
+	if(input2 == ''){
+		errors.push("フリガナを入力してください\n");
+	}
+
+	if(input5 == ''){
+		errors.push("お問い合わせ内容を入力してください");
+	}
+
+	if(errors.length > 0){
+		var er = errors.join(''); //カンマ取り除く
+		alert(er);
+		return false; //submitしない
+	}
+
+	return true;	//submitする
+	
+}
+
+// 名前文字数バリデーション
+var input1 = document.getElementById('input1');
+var messageElement1 = document.getElementById('message1');
+input1.addEventListener("input", function() {
+	var inputValue = input1.value;
+	if(inputValue.length > 10){
+		messageElement1.textContent = "名前は10文字以下にしてください";
+		return false;
+	}
+});
+
+// フリガナ文字数カウント
+var input2 = document.getElementById('input2');
+var messageElement2 = document.getElementById('message2');
+input2.addEventListener("input", function() {
+	var inputValue = input2.value;
+	if(inputValue.length > 10){
+		messageElement2.textContent = "フリガナは10文字以下にしてください";
+		return false;
+	}
+});
+
+// 数字であるか判断
+var input3 = document.getElementById('input3');
+var messageElement3 = document.getElementById('message3');
+input3.addEventListener("input", function() {
+	var inputValue = input3.value;
+	if(!/\d/.test(inputValue)){
+		messageElement3.textContent = "数字を入力してください";
+		return false;
+	}
+});
+

@@ -48,7 +48,7 @@ class Contact
         $stmt = $dbh->prepare($sql);
         $stmt->bindValue(':name', $contact['name'], PDO::PARAM_STR);
         $stmt->bindValue(':kana', $contact['kana'], PDO::PARAM_STR);
-        $stmt->bindValue(':tel', $contact['tel'], PDO::PARAM_INT);
+        $stmt->bindValue(':tel', $contact['tel'], PDO::PARAM_STR);
         $stmt->bindValue(':email', $contact['email'], PDO::PARAM_STR);
         $stmt->bindValue(':body', $contact['body'], PDO::PARAM_STR);
         $stmt->bindValue(':id', $contact['id'], PDO::PARAM_INT);

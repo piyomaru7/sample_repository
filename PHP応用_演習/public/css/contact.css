@@ -3,9 +3,9 @@
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  width: 585px;
+  width: 100vw;
   padding: 30px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 .contact_main p {
@@ -25,5 +25,6 @@
   margin: 5px 0;
 }
 
-
-
+.submit_btn {
+  margin-bottom: 5px;
+}

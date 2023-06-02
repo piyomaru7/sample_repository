@@ -17,11 +17,11 @@ Class ContactController
     return $contactsData;
   }
 
-  // ContactクラスのeditInsertを引数でidを渡して呼び出し特定のレコードを取得
+  // ContactクラスのeditContactを引数でidを渡して呼び出し特定のレコードを取得
   function edit(){
     $id = $_GET['id'];
     $contact = new Contact();
-    $contactsData = $contact->editInsert($id);
+    $contactsData = $contact->editContact($id);
     return $contactsData;
   }
 
@@ -33,7 +33,7 @@ Class ContactController
   }
   
   // 新規投稿時のバリデーション
-  function insertValidate() {
+  function createValidate() {
     // var_dump($_POST);
     // exit;
     if (isset($_POST['submit'])) {
@@ -51,7 +51,7 @@ Class ContactController
         $errors['name'] = '名前を入力してください';
       }
       
-      if(strlen($_SESSION['name']) > 10){
+      if(mb_strlen($_SESSION['name']) > 10){
         $errors['name'] = '名前は10文字以下にしてください';
       }
     
@@ -59,7 +59,7 @@ Class ContactController
         $errors['kana'] = 'フリガナを入力してください';
       }
       
-      if(strlen($_SESSION['kana']) > 10){
+      if(mb_strlen($_SESSION['kana']) > 10){
         $errors['kana'] = 'フリガナは10文字以下にしてください';
       }
     
@@ -89,7 +89,8 @@ Class ContactController
   function editValidate() {  
     
     if (isset($_POST['edit'])) {
-      //var_dump($_POST);編集後の値確認
+      // var_dump($_POST);//編集後の値確認
+      // exit;
       session_start();//セッションの上書き確認
 
       $_SESSION['id'] = $_POST['id'];
@@ -99,7 +100,8 @@ Class ContactController
       $_SESSION['email'] = $this->h($_POST['email']);
       $_SESSION['body'] = $this->h($_POST['body']);
 
-      //var_dump($_SESSION);セッションへの引き継ぎ確認
+      // var_dump($_SESSION);//セッションへの引き継ぎ確認
+      // exit;
     
       $errors = [];
     
@@ -108,7 +110,7 @@ Class ContactController
         $errors['name'] = '名前を入力してください';
       }
       
-      if(strlen($_SESSION['name']) > 10){
+      if(mb_strlen($_SESSION['name']) > 10){
         $errors['name'] = '名前は10文字以下にしてください';
       }
     
@@ -116,7 +118,7 @@ Class ContactController
         $errors['kana'] = 'フリガナを入力してください';
       }
       
-      if(strlen($_SESSION['kana']) > 10){
+      if(mb_strlen($_SESSION['kana']) > 10){
         $errors['kana'] = 'フリガナは10文字以下にしてください';
       }
     
@@ -133,7 +135,7 @@ Class ContactController
       }
     
       if (count($errors) === 0) {      
-        header("Location: /editConfirm.php");
+        header("Location: /editConfirm.php?=" . $_SESSION['id']);
       }
 
     }
@@ -143,9 +145,9 @@ Class ContactController
     }
   }
   
-  function getInsert() {
+  function getCreate() {
     $contact = new Contact();
-    return $contact->insert($_SESSION);
+    return $contact->create($_SESSION);
   }
 
   function getUpdate() {

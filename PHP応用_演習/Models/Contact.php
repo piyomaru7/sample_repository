@@ -5,7 +5,7 @@ require_once(ROOT_PATH . 'Models/dbc.php');
 class Contact
 {
   // 新規投稿実行
-  function insert($contact) { 
+  function create($contact) { 
     $sql = 'INSERT INTO 
               contacts (name, kana, tel, email, body)
               VALUES
@@ -74,7 +74,7 @@ class Contact
   }
 
   // 編集用idを受け取りレコードを取得
-  function editInsert($id) {
+  function editContact($id) {
     $dbh = dbConnect();
     $stmt = $dbh->prepare('SELECT * FROM contacts WHERE id = :id');
     $stmt->bindValue(':id', (int)$id, PDO::PARAM_INT);

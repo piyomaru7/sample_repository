@@ -7,11 +7,19 @@
     exit;
   }
 
-  if(isset($_POST['confirm'])){    
-    $contact = new ContactController();
-    $contact->getInsert();
+  if(isset($_POST['back'])){
+    // var_dump($_POST);
+    // exit;
+    session_start();
+    // session_destroy();
+    header("Location: /contact.php?id=" . $_SESSION['id']);
   }
 
+  if(isset($_POST['confirm'])){    
+    $contact = new ContactController();
+    $contact->getCreate();
+  }
+// var_dump($_SESSION);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -47,7 +55,7 @@
         </script>
         <div class="form">
           <!-- <form id="contact_submit" class="contact_form" action='./confirm.php' method='post' > -->
-          <form class="contact_form" action='./confirm.php' method='post' onsubmit="return confirm_test()">
+          <form class="contact_form" action='./confirm.php' method='post'>
             <div class="input_text">
               <p>氏名<br>
               <?php echo $_SESSION['name'] ?>
@@ -73,9 +81,9 @@
               <?php echo nl2br($_SESSION['body']) ?>
               </p>
             </div>
-            <!-- <input id="submit_btn" type="submit" name="back" value="戻る" onclick="history.back(-1)" class="submit_btn"> -->
-            <button type="button" onclick="history.back(-1)" class="submit_btn">戻る</button>
-            <input id="submit_btn" type="submit" name="confirm" value="確認" class="submit_btn">
+            <input id="submit_btn" type="submit" name="back" value="戻る"  class="submit_btn">
+            <!-- <button type="button" onclick="history.back(-1)" class="submit_btn">戻る</button> -->
+            <input id="submit_btn" type="submit" name="confirm" value="確認" class="submit_btn" onclick="return confirm_test()">
           </form>
         </div>
     

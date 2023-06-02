@@ -3,7 +3,12 @@ session_start();
 require_once(ROOT_PATH . 'Controllers/ContactController.php');
 $contact = new ContactController();
 $contactsData = $contact->index();
-$validate = $contact->insertValidate();//ここで$_SESSIONに格納している
+$validate = $contact->createValidate();//ここで$_SESSIONに格納している
+
+if(isset($_POST['edit'])){
+  session_destroy();
+  header("Location: edit.php?id=" . $_POST['id']);
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -91,8 +96,14 @@ $validate = $contact->insertValidate();//ここで$_SESSIONに格納している
               <td><?php echo $column['tel'] ?></td>
               <td><?php echo $column['email'] ?></td>
               <td><?php echo nl2br($column['body']) ?></td>
-              <td><a href="/edit.php?id=<?php echo $column['id'] ?>">編集</a></td>
+              <form action="./contact.php" method="post">
+                <input type="hidden" name="id" value="<?php echo $column['id']?>">
+              <!-- <td><a href="/edit.php?id=<?php //echo $column['id'] ?>">編集</a></td> -->
+              <td><input type="submit" name="edit" value="編集"></td>
+              </form>
+              <!-- <td><a href="/deleteConfirm.php?id=<?php echo $column['id'] ?>">削除</a></td> -->
               <td><a href="/deleteConfirm.php?id=<?php echo $column['id'] ?>">削除</a></td>
+              
             </tr>
           <?php endforeach; ?>
         </table>

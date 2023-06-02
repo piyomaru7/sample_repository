@@ -1,13 +1,17 @@
 <?php
-// session_start();
+session_start();
 require_once(ROOT_PATH . 'Controllers/ContactController.php');
 $contact = new ContactController();
 $contactsData = $contact->edit();
 // $validate = $contact->editValidate();
+
+// $previousPage = $_SERVER['HTTP_REFERER'];
+// if ($previousPage === "http://localhost/contact.php") {
+//     session_destroy();
+// }
+
 if(isset($_POST['edit'])){
-  // var_dump($_POST); $_POSTの値確認
   $validate = $contact->editValidate();
-  var_dump(mb_strlen($_SESSION['name'], 'UTF-8'));
 }
 
 if(isset($_POST['back'])){
@@ -57,35 +61,34 @@ if(isset($_POST['back'])){
             <div class="input_text">
               <label>氏名<br>
               <p id="message1"></p>
-                <input id="input1" type="text" name="name" value="<?php echo $contactsData['name']?>"/>
+                <input id="input1" type="text" name="name" value="<?php if(isset($_SESSION['name'])){echo $_SESSION['name'];}else{echo $contactsData['name'];}?>"/>
               </label>
             </div>
             <div class="input_text">
               <label>フリガナ<br>
               <p id="message2"></p>
-                <input id="input2" type="text" name="kana" value="<?php echo $contactsData['kana'];?>"/>
+                <input id="input2" type="text" name="kana" value="<?php if(isset($_SESSION['kana'])){echo $_SESSION['kana'];}else{echo $contactsData['kana'];}?>"/>
               </label>
             </div>
             <div class="input_text">
               <label>電話番号<br>
               <p id="message3"></p>
-                <input id="input3" type="tel" name="tel" value="<?php echo $contactsData['tel']?>"/>
+                <input id="input3" type="text" name="tel" value="<?php if(isset($_SESSION['tel'])){echo $_SESSION['tel'];}else{echo $contactsData['tel'];}?>"/>
               </label>
             </div>
             <div class="input_text">
               <label>メールアドレス<br>
               <p></p>
-                <input id="input4" type="email" name="email" value="<?php echo $contactsData['email']?>"/>
+                <input id="input4" type="text" name="email" value="<?php if(isset($_SESSION['email'])){echo $_SESSION['email'];}else{echo $contactsData['email'];}?>"/>
               </label>
             </div>
             <div class="input_text">
               <label>お問い合わせ内容<br>
               <p></p>
-                <textarea id="input5" name="body" ><?php echo $contactsData['body']?></textarea>
+                <textarea id="input5" name="body" ><?php if(isset($_SESSION['body'])){echo $_SESSION['body'];}else{echo $contactsData['body'];}?></textarea>
               </label>
             </div>
-            <!-- <input type="submit" name="back" value="戻る" class="submit_btn"> -->
-            <button type="button" onclick="history.back(-1)" class="submit_btn">戻る</button>
+            <input type="submit" name="back" value="戻る" class="submit_btn">
             <input type="submit" name="edit" value="確認" class="submit_btn">
           </form>
         </div>

@@ -7,7 +7,14 @@
     exit;
   }
 
-  if(isset($_POST['confirm'])){  
+
+  if(isset($_POST['back'])){
+    session_start();
+    // session_destroy();
+    header("Location: /edit.php?id=" . $_SESSION['id']);
+  }
+
+  if(isset($_POST['confirm'])){
     $contact = new ContactController();
     $contact->getUpdate();
     header('Location: editComplete.php');
@@ -15,6 +22,7 @@
   }
 
   
+
 
 ?>
 <!DOCTYPE HTML>
@@ -50,7 +58,8 @@
           }
         </script>
         <div class="form">
-          <form class="contact_form" action='./editConfirm.php' method='post' onsubmit="return confirm_test()">
+          <form class="contact_form" action='./editConfirm.php' method='post' >
+          <!-- <form class="contact_form" action='./editConfirm.php' method='post' onsubmit="return confirm_test()"> -->
             <div class="input_text">
               <p>氏名<br>
               <?php echo $_SESSION['name'] ?>
@@ -76,9 +85,9 @@
               <?php echo nl2br($_SESSION['body']) ?>
               </p>
             </div>
-            <!-- <input type="submit" value="戻る" onclick="history.back(-1)" class="submit_btn"> -->
-            <button type="button" onclick="history.back(-1)" class="submit_btn">戻る</button>
-            <input type="submit" name="confirm" value="確認" class="submit_btn">
+            <input type="submit" value="戻る" name="back" class="submit_btn">
+            <!-- <button type="button" onclick="history.back(-1)" class="submit_btn">戻る</button> -->
+            <input type="submit" name="confirm" value="確認" class="submit_btn" onclick="return confirm_test()">
           </form>
         </div>
       </div>

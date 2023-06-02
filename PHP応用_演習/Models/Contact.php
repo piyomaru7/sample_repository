@@ -83,7 +83,7 @@ class Contact
     return $result;
   }
 
-  function postDelete($id){
+  function delete($id){
     $dbh = dbConnect();
     $stmt = $dbh->prepare('DELETE FROM contacts WHERE id = :id');
     $stmt->bindValue(':id', (int)$id, PDO::PARAM_INT);

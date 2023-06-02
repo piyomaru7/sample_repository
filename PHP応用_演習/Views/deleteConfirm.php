@@ -4,7 +4,7 @@
   
   $contact = new ContactController();
   $contactsData = $contact->edit();  
-  
+
   if(empty($_SERVER["HTTP_REFERER"])){
     header('Location: index.php');
     exit;
@@ -14,9 +14,10 @@
   if(isset($_POST['confirm'])){  
     $id = $_POST['id'];
     $contact = new ContactController();
-    $contact->getPostDelete($id);
+    $contact->delete($id);
     header('Location: deleteComplete.php');
   }
+  
 
 ?>
 <!DOCTYPE HTML>

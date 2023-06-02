@@ -17,7 +17,7 @@
 
   if(isset($_POST['confirm'])){    
     $contact = new ContactController();
-    $contact->getCreate();
+    $contact->create();
   }
 // var_dump($_SESSION);
 ?>

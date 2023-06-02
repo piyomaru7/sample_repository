@@ -25,12 +25,21 @@ Class ContactController
     return $contactsData;
   }
 
-  function delete(){
-    $id = $_GET['id'];
+  function create() {
     $contact = new Contact();
-    $contactsData = $contact->postDelete($id);
-    return $contactsData;
+    return $contact->create($_SESSION);
   }
+
+  function update() {
+    $contact = new Contact();
+    return $contact->update($_SESSION);
+  }
+
+  function delete($id) {
+    $contact = new Contact();
+    return $contact->delete($id);
+  }
+
   
   // 新規投稿時のバリデーション
   function createValidate() {
@@ -145,19 +154,6 @@ Class ContactController
     }
   }
   
-  function getCreate() {
-    $contact = new Contact();
-    return $contact->create($_SESSION);
-  }
-
-  function getUpdate() {
-    $contact = new Contact();
-    return $contact->update($_SESSION);
-  }
-
-  function getPostDelete($id) {
-    $contact = new Contact();
-    return $contact->postDelete($id);
-  }
+  
 
 }

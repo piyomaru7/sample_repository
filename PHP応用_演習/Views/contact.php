@@ -101,7 +101,7 @@ if(isset($_POST['edit'])){
               <!-- <td><a href="/edit.php?id=<?php //echo $column['id'] ?>">編集</a></td> -->
               <td><input type="submit" name="edit" value="編集"></td>
               </form>
-              <!-- <td><a href="/deleteConfirm.php?id=<?php echo $column['id'] ?>">削除</a></td> -->
+              <!-- <td><a href="/deleteConfirm.php?id=<?php //echo $column['id'] ?>">削除</a></td> -->
               <td><a href="/deleteConfirm.php?id=<?php echo $column['id'] ?>">削除</a></td>
               
             </tr>

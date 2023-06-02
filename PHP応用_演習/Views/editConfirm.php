@@ -16,7 +16,7 @@
 
   if(isset($_POST['confirm'])){
     $contact = new ContactController();
-    $contact->getUpdate();
+    $contact->update();
     header('Location: editComplete.php');
     session_destroy();
   }
